@@ -2,12 +2,14 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.xml
   def index
-    @contacts = Contact.all
+    redirect_to mypage_url
+    return
+    #@contacts = Contact.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @contacts }
-    end
+    #respond_to do |format|
+    #  format.html # index.html.erb
+    #  format.xml  { render :xml => @contacts }
+    #end
   end
 
   # GET /contacts/1
@@ -41,11 +43,15 @@ class ContactsController < ApplicationController
   # POST /contacts.xml
   def create
     @contact = Contact.new(params[:contact])
+    @contact.user_id = session[:user_id]
+    @user = User.find(session[:user_id])
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to(@contact, :notice => 'Contact was successfully created.') }
-        format.xml  { render :xml => @contact, :status => :created, :location => @contact }
+        format.html { redirect_to(@user, :notice => 'Contact was successfully created.') }
+        format.xml  { render :xml => @user, :status => :created, :location => @contact }
+        #format.html { redirect_to(@contact, :notice => 'Contact was successfully created.') }
+        #format.xml  { render :xml => @contact, :status => :created, :location => @contact }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @contact.errors, :status => :unprocessable_entity }

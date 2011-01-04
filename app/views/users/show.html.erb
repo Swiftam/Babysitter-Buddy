@@ -10,7 +10,6 @@
         <tr>
           <th>Name</th>
           <th>Number</th>
-          <th>Description</th>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
         </tr>
@@ -18,18 +17,21 @@
       <tbody>
         <% @contacts.each do |contact| %>
           <tr>
-            <td><%= contact.id %></td>
-            <td><%= contact.id %></td>
-            <td><%= contact.id %></td>
-            <td><%= link_to 'Edit', edit_user_path(user) %></td>
-            <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= contact.name %></td>
+            <td><%= contact.number %></td>
+            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+            <td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 <% end %>
 
-<p><a href="#" onclick="openAddContact();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
+<div style="display:none;" id="newcontact_div">
+  <%= render 'contacts/form' %>
+</div>
+
+<p><a href="#" onclick="openNewContact();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
 
 <% if @children.nil? or @children.count == 0 %>
     <p>No children added.</p>
@@ -77,10 +79,14 @@
 <script type="text/javascript">
   var $house_rules = null;
   var $sitter_rules = null;
-  $(document).ready(function(){
+  var $new_contact = null;
+
+    jQuery(document).ready(function($){
       $sitter_rules = $("#sitterrules_div")
         .dialog({autoOpen: false});
       $house_rules = $("#houserules_div")
+        .dialog({autoOpen: false});
+      $new_contact = $("#newcontact_div")
         .dialog({autoOpen: false});
   });
 
@@ -90,5 +96,9 @@
 
   function openHouseRules() {
       $house_rules.dialog('open');
+  }
+
+  function openNewContact(){
+      $new_contact.dialog('open');
   }
 </script>
