@@ -49,7 +49,7 @@
 <p><%= @user.house_rules %></p>
 
 <div style="display:none;" id="houserules_div">
-    <% form_for @user, :remote => true do |f| %>
+    <% form_for @user, :html => { :id => 'edit-house-rules' } do |f| %>
         <%= f.label :house_rules, "House Rules" %><br />
         <%= f.text_area :house_rules, :rows => 8 %><br />
         <%= f.submit "Change House Rules" %>
@@ -64,7 +64,7 @@
 <p><%= @user.babysitter_rules %></p>
 
 <div style="display:none;" id="sitterrules_div">
-  <% form_for @user, :remote => true do |f| %>
+  <% form_for @user, :html => { :id => 'edit-babysitter-rules' } do |f| %>
       <%= f.label :babysitter_rules, "Babysitter Rules" %><br />
       <%= f.text_area :babysitter_rules, :rows => 8 %><br />
       <%= f.submit "Change Babysitter Rules" %>
