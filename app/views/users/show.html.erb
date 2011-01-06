@@ -33,11 +33,19 @@
 
 <p><a href="#" onclick="openNewContact();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
 
+<%= image_tag("iconica-green/48x48/user.png", :size => "48x48" ) %>
+
+<div style="display:none;" id="newdependent_div">
+  <%= render 'dependents/form' %>
+</div>
+
+<p><a href="#" onclick="openNewDependent();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
+
 <% if @children.nil? or @children.count == 0 %>
     <p>No children added.</p>
 <% else %>
     <% @children.each do |child| %>
-        <p>A child!</p>
+        <p><%= child.name %></p>
     <% end %>
 <% end %>
 
@@ -49,7 +57,7 @@
 <p><%= @user.house_rules %></p>
 
 <div style="display:none;" id="houserules_div">
-    <% form_for @user, :html => { :id => 'edit-house-rules' } do |f| %>
+    <%= form_for @user, :html => { :id => 'edit-house-rules' } do |f| %>
         <%= f.label :house_rules, "House Rules" %><br />
         <%= f.text_area :house_rules, :rows => 8 %><br />
         <%= f.submit "Change House Rules" %>
@@ -64,17 +72,12 @@
 <p><%= @user.babysitter_rules %></p>
 
 <div style="display:none;" id="sitterrules_div">
-  <% form_for @user, :html => { :id => 'edit-babysitter-rules' } do |f| %>
+  <%= form_for @user, :html => { :id => 'edit-babysitter-rules' } do |f| %>
       <%= f.label :babysitter_rules, "Babysitter Rules" %><br />
       <%= f.text_area :babysitter_rules, :rows => 8 %><br />
       <%= f.submit "Change Babysitter Rules" %>
   <% end %>
 </div>
-
-<!--
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
--->
 
 <script type="text/javascript">
   var $house_rules = null;
@@ -88,6 +91,8 @@
         .dialog({autoOpen: false});
       $new_contact = $("#newcontact_div")
         .dialog({autoOpen: false});
+      $new_dependent = $("#newdependent_div")
+        .dialog({autoOpen: false});
   });
 
   function openSitterRules() {
@@ -100,5 +105,9 @@
 
   function openNewContact(){
       $new_contact.dialog('open');
+  }
+
+  function openNewDependent(){
+      $new_dependent.dialog('open');
   }
 </script>

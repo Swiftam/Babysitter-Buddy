@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @contacts = Contact.find_all_by_user_id(params[:id])
     @contact = Contact.new(:user_id => @user.id)
+    @children = Dependent.find_all_by_user_id(params[:id])
+    @dependent = Dependent.new
 
     respond_to do |format|
       format.html # show.html.erb
