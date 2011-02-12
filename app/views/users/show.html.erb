@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<%= image_tag("iconica-green/48x48/phone.png", :size => "48x48") %>
+<div class="section">
+  <%= image_tag("iconica-green/48x48/phone.png", :size => "48x48") %>
+  <h2>Contacts</h1>
+</div>
 
 <% if @contacts.nil? or @contacts.count == 0  %>
     <p>None, yet.</p>
@@ -19,8 +22,8 @@
           <tr>
             <td><%= contact.name %></td>
             <td><%= contact.number %></td>
-            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-            <td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_contact_path(contact) %></td>
+            <td><%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), contact, :confirm => 'Are you sure?', :method => :delete %></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,21 +36,28 @@
 
 <p><a href="#" onclick="openNewContact();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
 
-<%= image_tag("iconica-green/48x48/user.png", :size => "48x48" ) %>
+<div class="section">
+  <%= image_tag("iconica-green/48x48/user.png", :size => "48x48" ) %>
+  <h2>Children</h1>
+</div>
 
 <div style="display:none;" id="newdependent_div">
   <%= render 'dependents/form' %>
 </div>
 
-<p><a href="#" onclick="openNewDependent();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
-
 <% if @children.nil? or @children.count == 0 %>
     <p>No children added.</p>
 <% else %>
     <% @children.each do |child| %>
-        <p><%= child.name %></p>
+        <p>
+          <%= child.name %>
+          <%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_dependent_path(child) %>
+          <%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), child, :confirm => 'Are you sure?', :method => :delete %>
+        </p>
     <% end %>
 <% end %>
+
+<p><a href="#" onclick="openNewDependent();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
 
 <h2>
   House Rules

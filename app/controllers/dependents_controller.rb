@@ -32,4 +32,19 @@ class DependentsController < ApplicationController
     end
   end
 
+  def edit
+    @dependent = Dependent.find(params[:id])
+  end
+
+  # DELETE /dependents/1
+  # DELETE /dependents/1.xml
+  def destroy
+    @dependent = Dependent.find(params[:id])
+    @dependent.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(dependents_url) }
+      format.xml  { head :ok }
+    end
+  end
 end
