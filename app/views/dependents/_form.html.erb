@@ -21,6 +21,21 @@
       <%= f.text_field :age %>
     </div>
 
+    <div class="field">
+      <%= f.label :food_schedule %><br />
+      <%= f.text_area :food_schedule, :size => "70x7" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :sleep_schedule %><br />
+      <%= f.text_area :sleep_schedule, :size => "70x7" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :medications %><br />
+      <%= f.text_area :medications, :size => "70x7" %>
+    </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

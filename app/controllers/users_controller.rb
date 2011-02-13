@@ -39,6 +39,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def register
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # register.html.erb
+    end
+  end
+
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])

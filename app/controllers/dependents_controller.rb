@@ -12,6 +12,11 @@ class DependentsController < ApplicationController
     #end
   end
 
+  def show
+    redirect_to mypage_url
+    return
+  end
+
   # POST /dependents
   # POST /dependents.xml
   def create
@@ -36,6 +41,22 @@ class DependentsController < ApplicationController
     @dependent = Dependent.find(params[:id])
   end
 
+  # PUT /dependents/1
+  # PUT /dependents/1.xml
+  def update
+    @dependent = Dependent.find(params[:id])
+
+    respond_to do |format|
+      if @dependent.update_attributes(params[:dependent])
+        format.html { redirect_to(@dependent, :notice => 'Dependent was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @dependent.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
   # DELETE /dependents/1
   # DELETE /dependents/1.xml
   def destroy

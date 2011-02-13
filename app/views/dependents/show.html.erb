@@ -1,0 +1,31 @@
+<div class="dependent">
+  <div class="section">
+    <%= image_tag("iconica-green/32x32/user.png", :size => "32x32" ) %>
+    <h3>
+      <%= child.name %>
+      <%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_dependent_path(child) %>
+      <%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), child, :confirm => 'Are you sure?', :method => :delete %>
+    </h3>
+  </div>
+
+  <% if child.food_schedule.to_s.strip.length > 0 %>
+      <div class="row">
+        <span>Food Schedule:</span>
+        <%= simple_format( child.food_schedule ) %>
+      </div>
+  <% end %>
+
+  <% if child.sleep_schedule.to_s.strip.length > 0 %>
+      <div class="row">
+        <span>Sleep Schedule:</span>
+        <%= simple_format( child.sleep_schedule ) %>
+      </div>
+  <% end %>
+
+  <% if child.medications.to_s.strip.length > 0 %>
+      <div class="row">
+        <span>Medications:</span>
+        <%= simple_format( child.medications   ) %>
+      </div>
+  <% end %>
+</div>

@@ -10,8 +10,11 @@
 </head>
 <body>
 
-<div id="content">
+<div id="header">
   <h1>Babysitter Buddy</h1>
+</div> 
+
+<div id="content">
   <br />
     <div id="middle">
         <%= yield %>
@@ -19,5 +22,10 @@
   <br />
 </div>
 
+<div class="messenger-panel" style="display:none">
+  <p>Join Babysitter Buddy and come back any time!</p>
+
+  <p><%= link_to "Click here to create an account - we'll remember you next time you come!", register_path %></p>
+</div>
 </body>
 </html>

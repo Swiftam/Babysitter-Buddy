@@ -2,7 +2,10 @@
 
 <div class="section">
   <%= image_tag("iconica-green/48x48/phone.png", :size => "48x48") %>
-  <h2>Contacts</h1>
+  <h2>
+    Contacts
+    <a href="#" onclick="openNewContact();return false;"><%= image_tag("iconica-green/16x16/add.png", :size => "16x16") %></a>
+  </h2>
 </div>
 
 <% if @contacts.nil? or @contacts.count == 0  %>
@@ -34,11 +37,12 @@
   <%= render 'contacts/form' %>
 </div>
 
-<p><a href="#" onclick="openNewContact();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
-
 <div class="section">
   <%= image_tag("iconica-green/48x48/user.png", :size => "48x48" ) %>
-  <h2>Children</h1>
+  <h2>
+    Children
+    <a href="#" onclick="openNewDependent();return false;"><%= image_tag("iconica-green/16x16/add.png", :size => "16x16") %></a>
+  </h2>
 </div>
 
 <div style="display:none;" id="newdependent_div">
@@ -49,20 +53,16 @@
     <p>No children added.</p>
 <% else %>
     <% @children.each do |child| %>
-        <p>
-          <%= child.name %>
-          <%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_dependent_path(child) %>
-          <%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), child, :confirm => 'Are you sure?', :method => :delete %>
-        </p>
+        <%= render :template => 'dependents/show', :locals => { :child => child } %>
     <% end %>
 <% end %>
 
-<p><a href="#" onclick="openNewDependent();return false;"><%= image_tag("iconica-green/32x32/add.png", :size => "32x32") %></a></p>
-
-<h2>
-  House Rules
-  <a href="#" onclick="openHouseRules();return false;"><%= image_tag("iconica-green/16x16/brush.png", :size => "16x16") %></a>
-</h2>
+<div class="section">
+  <%= image_tag("iconica-green/48x48/home.png", :size => "48x48" ) %>
+  <h2>House Rules
+    <a href="#" onclick="openHouseRules();return false;"><%= image_tag("iconica-green/16x16/brush.png", :size => "16x16") %></a>
+  </h2>
+</div>
 
 <p><%= @user.house_rules %></p>
 
@@ -74,10 +74,12 @@
     <% end %>
 </div>
 
-<h2>
-  Babysitter Rules
-  <a href="#" onclick="openSitterRules();return false;"><%= image_tag("iconica-green/16x16/brush.png", :size => "16x16") %></a>
-</h2>
+<div class="section">
+  <%= image_tag("iconica-green/48x48/mail.png", :size => "48x48" ) %>
+  <h2>Babysitter Rules
+    <a href="#" onclick="openSitterRules();return false;"><%= image_tag("iconica-green/16x16/brush.png", :size => "16x16") %></a>
+  </h2>
+</div>
 
 <p><%= @user.babysitter_rules %></p>
 
@@ -96,13 +98,13 @@
 
     jQuery(document).ready(function($){
       $sitter_rules = $("#sitterrules_div")
-        .dialog({autoOpen: false});
+        .dialog({autoOpen: false, width: 'auto'});
       $house_rules = $("#houserules_div")
-        .dialog({autoOpen: false});
+        .dialog({autoOpen: false, width: 'auto'});
       $new_contact = $("#newcontact_div")
-        .dialog({autoOpen: false});
+        .dialog({autoOpen: false, width: 'auto'});
       $new_dependent = $("#newdependent_div")
-        .dialog({autoOpen: false});
+        .dialog({autoOpen: false, width: 'auto', modal: true, overlay: { opacity: 0.3, background: "white" }});
   });
 
   function openSitterRules() {
@@ -121,3 +123,11 @@
       $new_dependent.dialog('open');
   }
 </script>
+
+<% if @user.email.to_s.strip.length == 0 %>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+          $(".messenger-panel").delay(1250).slideDown('slow');
+      });
+    </script>
+<% end %>

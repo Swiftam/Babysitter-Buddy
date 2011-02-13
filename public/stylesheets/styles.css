@@ -1,8 +1,44 @@
-body { background-color: #2244ac; }
-#content { background-color: #ffffff; width:900px;margin: 25px auto; }
+html {
+    min-height: 100%;
+}
+
+body {
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.6, #B1C2F5),
+        color-stop(1, #2244AC)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #B1C2F5 60%,
+        #2244AC 100%
+    );
+    background-color: #2244ac; font-family: Trebuchet, Sans-Serif;
+    min-height: 100%;
+}
+
+#header { width: 880px; margin: 0 auto; }
+#header h1 { font-family: Lucida Sans, Sans-Serif; margin: 0; color: #B2B200;}
+
+#content { background-color: #ffffff; width:900px;margin: 0 auto 100px auto; -moz-border-radius: 7px; -webkit-border-radius: 7px; }
+
 #middle { margin: 25px; }
 a img { border: none; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=100); -moz-opacity: 1; opacity: 1; }
 a:hover img { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=75); -moz-opacity: 0.75; opacity: 0.75; }
 
 .section img { float: left; }
 .section h2 { padding-top: 10px; margin-left: 53px; }
+.section h3 { padding-top: 6px; margin-left: 35px; }
+.section h2 img, .section h3 img { float: none; }
+
+.dependent { margin: 0 0 25px 50px; }
+.dependent .row { margin-left: 125px; }
+.dependent .row span { font-weight: bold; display: block; float: left; position: relative; margin-left: -125px; }
+
+.ui-dialog { width: 550px; }
+.ui-dialog-content { background-color: #fff; width: 550px; }
+.ui-icon-closethick { float: right; display: block; text-indent: -999em; background-image: url("../images/iconica-green/24x24/remove.png" ); width: 24px; height: 24px; }
+
+.messenger-panel { width: 100%; position:fixed; bottom: 0; height: 75px; background:#fff; border-top: 2px solid #000; padding: 0; margin: 0; left: 0; text-align: center; }
