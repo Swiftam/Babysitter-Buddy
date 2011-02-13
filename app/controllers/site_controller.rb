@@ -16,7 +16,11 @@ class SiteController < ApplicationController
         session[:user_id] = @user.id
       end
     end
-    redirect_to :controller => 'users', :action => 'register', :id => @user.id
+    redirect_to :controller => 'users', :action => 'edit', :id => @user.id
+  end
+
+  def about()
+
   end
 
   def mypage()
@@ -33,5 +37,9 @@ class SiteController < ApplicationController
       end
     end
     redirect_to :controller => 'users', :action => 'show', :id => @user.id
+  end
+
+  def logout()
+    redirect_to root_url
   end
 end

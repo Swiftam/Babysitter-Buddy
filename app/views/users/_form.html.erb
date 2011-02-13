@@ -1,3 +1,5 @@
+<%= @status %>
+
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +14,11 @@
   <% end %>
 
     <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
       <%= f.label :email %><br />
       <%= f.text_field :email %>
     </div>
@@ -19,6 +26,11 @@
     <div class="field">
       <%= f.label :password %><br />
       <%= f.password_field :password %>
+    </div>
+
+    <div class="field">
+      <%= check_box_tag(:mailing_list, "1", @status == 'subscribed') %>
+      <%= label_tag(:mailing_list, "Sign me up to the mailing list!") %>
     </div>
 
   <div class="actions">

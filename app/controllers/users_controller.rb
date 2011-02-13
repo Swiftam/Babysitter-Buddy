@@ -39,17 +39,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def register
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # register.html.erb
-    end
-  end
-
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @status = 'unsubscribed'
+
+    # Detect whether user is subscribed to Mailing List
+    if @user.email.to_s.length > 0
+      h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
+      member_info = h.list_member_info('98f9b77c0b', [@user.email] )
+      if member_info['success'] > 0
+        @status = member_info['data'][0]['status']
+      end
+    end
   end
 
   # POST /users
@@ -75,6 +77,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        # Subscribe to the Mailchimp list
+        h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
+        if params[:mailing_list]
+          h.list_subscribe('98f9b77c0b', @user.email, [], 'html', true, true, true, true)
+        else
+          h.list_unsubscribe('98f9b77c0b', @user.email, false, true, true)
+        end
+
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
