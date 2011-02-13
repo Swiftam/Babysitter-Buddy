@@ -80,7 +80,11 @@ class UsersController < ApplicationController
         # Subscribe to the Mailchimp list
         h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
         if params[:mailing_list]
-          h.list_subscribe('98f9b77c0b', @user.email, [], 'html', true, true, true, true)
+          first_name, last_name = @user.name.split(/\s+/, 2)
+          if last_name.to_s.strip.length == 0
+            last_name = ''
+          end
+          h.list_subscribe('98f9b77c0b', @user.email, {'FNAME' => first_name, 'LNAME' => last_name}, 'html', true, true, true, true)
         else
           h.list_unsubscribe('98f9b77c0b', @user.email, false, true, true)
         end
