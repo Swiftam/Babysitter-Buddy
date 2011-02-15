@@ -78,15 +78,24 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         # Subscribe to the Mailchimp list
-        h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
-        if params[:mailing_list]
-          first_name, last_name = @user.name.split(/\s+/, 2)
-          if last_name.to_s.strip.length == 0
-            last_name = ''
+        begin
+          h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
+          if params[:mailing_list]
+            first_name, last_name = @user.name.split(/\s+/, 2)
+            if first_name.to_s.strip.length == 0
+              first_name = ''
+            end
+            if last_name.to_s.strip.length == 0
+              last_name = ''
+            end
+            h.list_subscribe('98f9b77c0b', @user.email, {'FNAME' => first_name, 'LNAME' => last_name}, 'html', true, true, true, true)
+          else
+            h.list_unsubscribe('98f9b77c0b', @user.email, false, true, true)
           end
-          h.list_subscribe('98f9b77c0b', @user.email, {'FNAME' => first_name, 'LNAME' => last_name}, 'html', true, true, true, true)
-        else
-          h.list_unsubscribe('98f9b77c0b', @user.email, false, true, true)
+        rescue Hominid::APIError
+          # Fail gracefully - this will occur when user attempts to unsubscribe
+          # when they haven't yet subscribed (such as when an account is created
+          # with the 'subscribe' option unchecked
         end
 
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
