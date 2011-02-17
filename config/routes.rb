@@ -15,6 +15,7 @@ BabysitterBuddy::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
   match 'mypage' => 'site#mypage'
   match 'register' => 'site#register'
+  match 'login' => 'site#login'
   match 'logout' => 'site#logout'
   match 'about' => 'site#about'
 

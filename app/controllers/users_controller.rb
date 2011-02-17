@@ -15,10 +15,11 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find(params[:id])
-    @contacts = Contact.find_all_by_user_id(params[:id])
+    #@user = User.find(params[:id])
+    @user = current_user
+    @contacts = Contact.find_all_by_user_id(@user.id)
     @contact = Contact.new(:user_id => @user.id)
-    @children = Dependent.find_all_by_user_id(params[:id])
+    @children = Dependent.find_all_by_user_id(@user.id)
     @dependent = Dependent.new
 
     respond_to do |format|
@@ -41,7 +42,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
+    @user = current_user
     @status = 'unsubscribed'
 
     # Detect whether user is subscribed to Mailing List
@@ -73,10 +75,14 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
+    @user = current_user
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        password = @user.id.to_s << @user.password
+        crypt_password = Digest::SHA512.hexdigest(password)
+        User.update(@user.id, :password => crypt_password)
         # Subscribe to the Mailchimp list
         begin
           h = Hominid::API.new('bc8d1da101dc2024b124e30af36fb513-us1')
@@ -110,7 +116,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
+    @user = current_user
     @user.destroy
 
     respond_to do |format|

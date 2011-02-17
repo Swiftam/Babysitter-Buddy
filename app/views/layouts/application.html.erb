@@ -15,8 +15,12 @@
   <ul id="topmenu">
     <li><%= link_to "Home", root_url %></li>
     <li><%= link_to "About", about_url %></li>
-    <li><%= link_to "Settings", register_url %></li>
-    <li><%= link_to "Logout", logout_url %></li>
+    <% if current_user.nil? %>
+        <li><a href="#" onclick="showLogin();return false;">Sign In</a></li>
+    <% else %>
+        <li><%= link_to "Settings", register_url %></li>
+        <li><%= link_to "Logout", logout_url %></li>
+    <% end %>
   </ul>
 </div> 
 
@@ -28,10 +32,41 @@
   <br />
 </div>
 
+<div style="display:none;" id="login_div">
+  <%= form_tag({:controller => :site, :action => :login}, {:method => :put}) do %>
+      <p>
+        <%= label_tag 'email', 'Email Address:' %><br />
+        <%= text_field_tag 'email' %>
+      </p>
+
+      <p>
+        <%= label_tag 'password', 'Password:' %><br />
+        <%= password_field_tag 'password' %>
+      </p>
+
+      <p>
+        <%= submit_tag "Sign In" %>
+      </p>
+  <% end %>
+</div>
+
 <div class="messenger-panel" style="display:none">
   <p>Join Babysitter Buddy and come back any time!</p>
 
   <p><%= link_to "Click here to create an account - we'll remember you next time you come!", register_path %></p>
 </div>
+
+<script type="text/javascript">
+  var $login_box = null;
+
+    jQuery(document).ready(function($){
+      $login_box = $("#login_div")
+        .dialog({autoOpen: false, width: 'auto'});
+  });
+
+  function showLogin() {
+      $login_box.dialog('open');
+  }
+</script>
 </body>
 </html>
