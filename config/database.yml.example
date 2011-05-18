@@ -2,7 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter: mysql2
-  database: babysitter-dev
+  database: dev_db
   username: dev
   password: dev
   encoding: utf8
@@ -14,7 +14,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: mysql2
-  database: babysitter-test
+  database: test_db
   username: dev
   password: dev
   encoding: utf8
@@ -23,9 +23,9 @@ test:
 
 production:
   adapter: mysql2
-  database: babysitter-prod
-  username: baby
-  password: kope4$jmMdl!
+  database: prod_db
+  username: prod
+  password: prod
   encoding: utf8
   pool: 5
   timeout: 5000
