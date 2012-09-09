@@ -32,3 +32,7 @@ gem 'pg'
 #   gem 'webrat'
 # end
 gem 'hominid'
+
+# Use thin webserver with Heroku, rather than
+# default webrick
+gem 'thin'
