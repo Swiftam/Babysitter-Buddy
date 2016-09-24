@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 .bundle
+bin/
 db/*.sqlite3
 *.rbc
 *.sassc
