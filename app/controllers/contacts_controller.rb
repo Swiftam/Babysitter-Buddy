@@ -42,7 +42,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.xml
   def create
-    @contact = Contact.new(params[:contact])
+    @contact = Contact.new(contact_params)
     @contact.user_id = session[:user_id]
     @user = User.find(session[:user_id])
 
@@ -86,4 +86,11 @@ class ContactsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+    def contact_params
+      # Ensure posted record contains the correct fields 
+      # Whitelist nested elements
+      params.require(:contact).permit(:name, :number)
+    end
 end
