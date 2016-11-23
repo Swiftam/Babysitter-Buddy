@@ -65,7 +65,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     respond_to do |format|
-      if @contact.update_attributes(params[:contact])
+      if @contact.update_attributes(contact_params)
         format.html { redirect_to(@contact, :notice => 'Contact was successfully updated.') }
         format.xml  { head :ok }
       else
