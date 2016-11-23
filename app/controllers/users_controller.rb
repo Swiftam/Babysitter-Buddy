@@ -17,9 +17,9 @@ class UsersController < ApplicationController
   def show
     #@user = User.find(params[:id])
     @user = current_user
-    @contacts = Contact.find_by(:user_id => @user.id)
+    @contacts = Contact.where(:user_id => @user.id)
     @contact = Contact.new(:user_id => @user.id)
-    @children = Dependent.find_by(:user_id => @user.id)
+    @children = Dependent.where(:user_id => @user.id)
     @dependent = Dependent.new
 
     respond_to do |format|
