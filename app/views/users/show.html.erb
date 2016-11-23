@@ -26,7 +26,7 @@
             <td><%= contact.name %></td>
             <td><%= contact.number %></td>
             <td><%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_contact_path(contact) %></td>
-            <td><%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), contact, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), contact, :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>
           </tr>
         <% end %>
       </tbody>
