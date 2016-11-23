@@ -4,7 +4,7 @@
     <h3>
       <%= child.name %>
       <%= link_to image_tag("iconica-green/16x16/brush.png", :size => "16x16", :title => "Edit"), edit_dependent_path(child) %>
-      <%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), child, :confirm => 'Are you sure?', :method => :delete %>
+      <%= link_to image_tag("iconica-green/16x16/remove.png", :size => "16x16", :title => "Delete" ), child, :data => { :confirm => 'Are you sure?' }, :method => :delete %>
     </h3>
   </div>
 

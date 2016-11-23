@@ -20,7 +20,7 @@ class DependentsController < ApplicationController
   # POST /dependents
   # POST /dependents.xml
   def create
-    @dependent = Dependent.new(params[:dependent])
+    @dependent = Dependent.new(dependent_params)
     @dependent.user_id = session[:user_id]
     @user = User.find(session[:user_id])
 
@@ -47,7 +47,7 @@ class DependentsController < ApplicationController
     @dependent = Dependent.find(params[:id])
 
     respond_to do |format|
-      if @dependent.update_attributes(params[:dependent])
+      if @dependent.update_attributes(dependent_params)
         format.html { redirect_to(@dependent, :notice => 'Dependent was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -68,4 +68,11 @@ class DependentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+    def dependent_params
+      # Ensure posted record contains the correct fields 
+      # Whitelist nested elements
+      params.require(:dependent).permit(:name, :age, :food_schedule, :sleep_schedule, :medications)
+    end
 end
